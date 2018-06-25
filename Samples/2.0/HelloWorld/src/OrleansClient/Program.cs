@@ -75,12 +75,13 @@ namespace OrleansClient
 
             return client;
         }
-
+        private static Random random = new Random();
         private static async Task DoClientWork(IClusterClient client)
         {
             // example of calling grains from the initialized client
-            var friend = client.GetGrain<IHello>(0);
-            var response = await friend.SayHello("Good morning, my friend!");
+            var number = random.Next(1000);
+            var friend = client.GetGrain<IHello>(number);
+            var response = await friend.SayHello($"Good morning, client {number}!");
             Console.WriteLine("\n\n{0}\n\n", response);
         }
     }
