@@ -24,8 +24,12 @@ namespace OrleansClient
             {
                 using (var client = await StartClientWithRetries())
                 {
-                    await DoClientWork(client);
-                    Console.ReadKey();
+                    while(!Console.KeyAvailable)
+                    {
+                        await DoClientWork(client);
+                        await Task.Delay(250);
+                    }
+                    
                 }
 
                 return 0;
