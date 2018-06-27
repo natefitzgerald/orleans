@@ -46,7 +46,7 @@ namespace OrleansClient
                             options.ClusterId = Constants.ClusterId;
                             options.ServiceId = Constants.ServiceId;
                         })
-                        .UseLocalhostClustering()
+                        .UseZooKeeperClustering(options => options.ConnectionString = "10.0.0.6:2181")
                         .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(IChannel).Assembly).WithReferences())
                         .ConfigureLogging(logging => logging.AddConsole())
                         //Depends on your application requirements, you can configure your client with other stream providers, which can provide other features, 

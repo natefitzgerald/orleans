@@ -17,10 +17,6 @@ namespace OrleansServer
 	{
 		static void Main(string[] args)
 		{
-            ZooKeeperClusteringSiloOptions zooOptions = new ZooKeeperClusteringSiloOptions();
-            zooOptions.ConnectionString = "lel";
-
-
             var builder = new SiloHostBuilder()
                 .Configure<ClusterOptions>(options =>
                 {
