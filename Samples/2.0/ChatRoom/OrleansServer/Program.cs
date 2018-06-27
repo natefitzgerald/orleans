@@ -17,13 +17,17 @@ namespace OrleansServer
 	{
 		static void Main(string[] args)
 		{
-		    var builder = new SiloHostBuilder()
-		        .Configure<ClusterOptions>(options =>
-		        {
-		            options.ClusterId = Constants.ClusterId;
-		            options.ServiceId = Constants.ServiceId;
-		        })
-		        .UseLocalhostClustering()
+            ZooKeeperClusteringSiloOptions zooOptions = new ZooKeeperClusteringSiloOptions();
+            zooOptions.ConnectionString = "lel";
+
+
+            var builder = new SiloHostBuilder()
+                .Configure<ClusterOptions>(options =>
+                {
+                    options.ClusterId = Constants.ClusterId;
+                    options.ServiceId = Constants.ServiceId;
+                })
+                .UseZooKeeperClustering(options => options.ConnectionString = "127.0.0.1:2181")
 		        .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
                 .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(Channel).Assembly).WithReferences())
 		        .ConfigureLogging(logging => logging.AddConsole())
@@ -42,6 +46,7 @@ namespace OrleansServer
 
 			// shut the silo down after we are done.
 		    silo.StopAsync().Wait();
+            
 		}
 	}
 }
